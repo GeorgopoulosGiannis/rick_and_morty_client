@@ -30,14 +30,14 @@ void main() {
     'Should get characters for given page from the repository',
     () async {
       // arrange
-      when(mockRepo.getCharacterPage(page: 2))
+      when(mockRepo.getCharacterPage(2))
           .thenAnswer((_) async => Right(tCharacterPage2));
       // act
       final result = await usecase(2);
 
       // assert
       expect(result.right, tCharacterPage2);
-      verify(mockRepo.getCharacterPage(page: 2)).called(1);
+      verify(mockRepo.getCharacterPage(2)).called(1);
       verifyNoMoreInteractions(mockRepo);
     },
   );

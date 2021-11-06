@@ -7,15 +7,13 @@ import '../../../../core/domain/repositories/character_repository.dart';
 
 import '../entities/characters_page.dart';
 
-
-
 @lazySingleton
-class GetCharacters extends UseCase<CharactersPage, int?> {
+class GetCharacters extends UseCase<CharactersPage, int> {
   final CharacterRepository repo;
 
   GetCharacters(this.repo);
   @override
-  Future<Either<Failure, CharactersPage>> call(int? params) {
-    return repo.getCharacterPage(page: params);
+  Future<Either<Failure, CharactersPage>> call(int params) {
+    return repo.getCharacterPage(params);
   }
 }
