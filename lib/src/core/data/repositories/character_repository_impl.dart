@@ -4,12 +4,15 @@ import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:either_dart/either.dart';
 
+
+
 import '../../../features/characters_list/data/models/characters_page_model.dart';
 import '../../../features/characters_list/domain/entities/characters_page.dart';
 import '../../domain/failures/server_failure.dart';
 import '../../domain/repositories/character_repository.dart';
-
+import '../../domain/entities/character.dart';
 import '../../domain/failures/failure.dart';
+import '../models/character_model.dart';
 
 const baseUrl = 'rickandmortyapi.com';
 const path = 'api/character';
@@ -34,6 +37,27 @@ class CharacterRepositoryImpl extends CharacterRepository {
       final pageModel =
           CharactersPageModel.fromJson(json.decode(response.body));
       return Right(pageModel);
+    } catch (e) {
+      return Left(
+        ServerFailure(
+          e.toString(),
+          0,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Character>> getCharacterForID(int id) async {
+    try {
+      final uri = Uri.https(baseUrl, '$path/$id');
+      final response = await client.get(uri);
+
+      if (response.statusCode != 200) {
+        return Left(ServerFailure('', 0));
+      }
+      final charModel = CharacterModel.fromJson(json.decode(response.body));
+      return Right(charModel);
     } catch (e) {
       return Left(
         ServerFailure(

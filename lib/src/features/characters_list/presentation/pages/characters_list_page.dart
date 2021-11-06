@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty_client/src/core/route_generator.dart';
+import 'package:rick_and_morty_client/src/features/character_details/presentation/pages/character_details_page.dart';
 
 import '../bloc/characters_list_bloc.dart';
 import '../widgets/list_card.dart';
@@ -36,7 +38,18 @@ class CharactersListPage extends StatelessWidget {
                 itemCount: state.characters.length,
                 itemBuilder: (context, i) {
                   final character = state.characters[i];
-                  return ListCard(char: character);
+                  return ListCard(
+                    char: character,
+                    onTap: () {
+                      // could directly pass character and avoid second http call
+                      Navigator.of(context).pushNamed(
+                        Pages.detail,
+                        arguments: CharacterPageArguments(
+                          character.id,
+                        ),
+                      );
+                    },
+                  );
                 },
               );
             }

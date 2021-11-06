@@ -6,6 +6,8 @@ import 'dart:async' as _i4;
 
 import 'package:either_dart/either.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:rick_and_morty_client/src/core/domain/entities/character.dart'
+    as _i7;
 import 'package:rick_and_morty_client/src/core/domain/failures/failure.dart'
     as _i5;
 import 'package:rick_and_morty_client/src/core/domain/repositories/character_repository.dart'
@@ -42,6 +44,13 @@ class MockCharacterRepository extends _i1.Mock
                   Future<_i2.Either<_i5.Failure, _i6.CharactersPage>>.value(
                       _FakeEither_0<_i5.Failure, _i6.CharactersPage>()))
           as _i4.Future<_i2.Either<_i5.Failure, _i6.CharactersPage>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, _i7.Character>> getCharacterForID(
+          int? id) =>
+      (super.noSuchMethod(Invocation.method(#getCharacterForID, [id]),
+              returnValue: Future<_i2.Either<_i5.Failure, _i7.Character>>.value(
+                  _FakeEither_0<_i5.Failure, _i7.Character>()))
+          as _i4.Future<_i2.Either<_i5.Failure, _i7.Character>>);
   @override
   String toString() => super.toString();
 }

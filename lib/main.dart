@@ -19,7 +19,7 @@ void main() {
         FlutterError.presentError(details);
       };
       configureDependencies();
-      runApp(const RickAndMortyClient());
+      runApp(RickAndMortyClient(RouteGenerator()));
     },
     (Object error, StackTrace stacktrace) {
       print('error $error');
@@ -29,7 +29,8 @@ void main() {
 }
 
 class RickAndMortyClient extends StatelessWidget {
-  const RickAndMortyClient({Key? key}) : super(key: key);
+  final RouteGenerator router;
+  const RickAndMortyClient(this.router, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,9 @@ class RickAndMortyClient extends StatelessWidget {
           brightness: Brightness.dark,
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.white,
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
             titleTextStyle: TextStyle(
               color: Colors.black,
               fontSize: 20,
@@ -62,7 +66,10 @@ class RickAndMortyClient extends StatelessWidget {
         ),
         themeMode: ThemeMode.dark,
         home: const CharactersListPage(),
-        onGenerateRoute: RouteGenerator.handleRoute,
+        navigatorObservers: [
+          router.routeObserver,
+        ],
+        onGenerateRoute: router.handleRoute,
       ),
     );
   }

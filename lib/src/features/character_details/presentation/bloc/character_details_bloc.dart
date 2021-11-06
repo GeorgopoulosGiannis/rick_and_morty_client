@@ -1,13 +1,44 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
+import 'package:rick_and_morty_client/src/core/domain/entities/character.dart';
+import 'package:rick_and_morty_client/src/features/character_details/domain/usecases/get_character.dart';
 
 part 'character_details_event.dart';
 part 'character_details_state.dart';
 
-class CharacterDetailsBloc extends Bloc<CharacterDetailsEvent, CharacterDetailsState> {
-  CharacterDetailsBloc() : super(CharacterDetailsInitial()) {
-    on<CharacterDetailsEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+@injectable
+class CharacterDetailsBloc
+    extends Bloc<CharacterDetailsEvent, CharacterDetailsState> {
+  final int? charID;
+  final GetCharacter getChar;
+
+  CharacterDetailsBloc(
+    this.getChar, {
+    @factoryParam this.charID,
+  })  : assert(charID != null),
+        super(Empty()) {
+    registerEvents();
+    add(LoadEvent());
+  }
+
+  void registerEvents() {
+    on<LoadEvent>(_onLoadEvent);
+  }
+
+  FutureOr<void> _onLoadEvent(
+    LoadEvent event,
+    Emitter<CharacterDetailsState> emit,
+  ) async {
+    emit(Loading());
+    final charOrFailure = await getChar(charID!);
+    emit(
+      charOrFailure.fold(
+        (failure) => Error(failure.message),
+        (char) => Loaded(char),
+      ),
+    );
   }
 }

@@ -6,3 +6,5 @@ abstract class CharacterDetailsEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class LoadEvent extends CharacterDetailsEvent {}

@@ -8,9 +8,11 @@ import 'card_title.dart';
 
 class ListCard extends StatelessWidget {
   final Character char;
+  final VoidCallback onTap;
   const ListCard({
     Key? key,
     required this.char,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -24,40 +26,43 @@ class ListCard extends StatelessWidget {
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Flexible(
-              flex: 2,
-              child: CardImage(
-                url: char.imageUrl,
+      child: InkWell(
+        onTap: onTap,
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Flexible(
+                flex: 2,
+                child: CardImage(
+                  url: char.imageUrl,
+                ),
               ),
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            Flexible(
-              flex: 3,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  CardTitle(
-                    name: char.name,
-                    species: char.species,
-                    status: char.status,
-                  ),
-                  CardSubtitle(
-                    lastKnown: char.location.name,
-                    firstSeen: char.origin.name,
-                  ),
-                ],
+              const SizedBox(
+                width: 15,
               ),
-            )
-          ],
+              Flexible(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    CardTitle(
+                      name: char.name,
+                      species: char.species,
+                      status: char.status,
+                    ),
+                    CardSubtitle(
+                      lastKnown: char.location.name,
+                      firstSeen: char.origin.name,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
