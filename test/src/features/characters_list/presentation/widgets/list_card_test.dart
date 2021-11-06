@@ -40,6 +40,27 @@ void main() {
         final imageFinder = find.byType(Image);
         expect(imageFinder, findsOneWidget);
       });
+
+      testWidgets('Should display green badge if status is alive',
+          (WidgetTester tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            builder: (context, widget) {
+              return Material(
+                child: ListCard(
+                  char: char,
+                  onTap: () {},
+                ),
+              );
+            },
+          ),
+        );
+        final badgeFinder = find.byType(CircleAvatar);
+        final avatar =badgeFinder.evaluate().single.widget as CircleAvatar;
+
+        expect(badgeFinder, findsOneWidget);
+        expect( avatar.backgroundColor,Colors.green);
+      });
     },
   );
 }
