@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_client/src/core/injector.dart';
-import 'package:rick_and_morty_client/src/features/character_details/presentation/widgets/detail_card.dart';
+
+import '../../../../core/injector.dart';
 
 import '../bloc/character_details_bloc.dart';
+import '../widgets/detail_card.dart';
 
 class CharacterDetailsPage extends StatelessWidget {
   final int charID;

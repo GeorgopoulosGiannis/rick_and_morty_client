@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_client/src/features/character_details/presentation/widgets/detail_field.dart';
+
 import '../../../../core/domain/entities/character.dart';
+
 import 'detail_image.dart';
+import 'detail_field.dart';
 
 class DetailCard extends StatelessWidget {
   final Character char;

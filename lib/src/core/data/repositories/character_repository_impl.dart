@@ -4,10 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:either_dart/either.dart';
-import 'package:rick_and_morty_client/src/core/domain/failures/app_failure.dart';
+
 
 import '../../../features/characters_list/data/models/characters_page_model.dart';
 import '../../../features/characters_list/domain/entities/characters_page.dart';
+import '../../domain/failures/app_failure.dart';
 import '../../domain/failures/server_failure.dart';
 import '../../domain/repositories/character_repository.dart';
 import '../../domain/entities/character.dart';

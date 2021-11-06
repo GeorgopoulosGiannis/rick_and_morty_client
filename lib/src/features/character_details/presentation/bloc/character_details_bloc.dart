@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:rick_and_morty_client/src/core/domain/entities/character.dart';
-import 'package:rick_and_morty_client/src/features/character_details/domain/usecases/get_character.dart';
+
+import '../../../../core/domain/entities/character.dart';
+import '../../domain/usecases/get_character.dart';
 
 part 'character_details_event.dart';
 part 'character_details_state.dart';
