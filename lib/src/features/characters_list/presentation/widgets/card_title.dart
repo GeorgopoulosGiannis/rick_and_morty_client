@@ -45,10 +45,12 @@ class CardTitle extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Text('${status.text} - $species',
-                style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    )),
+            Text(
+              '${status.text} - $species',
+              style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
           ],
         )
       ],

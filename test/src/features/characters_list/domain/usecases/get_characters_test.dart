@@ -4,11 +4,11 @@ import 'package:either_dart/either.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rick_and_morty_client/core/domain/repositories/character_repository.dart';
-import 'package:rick_and_morty_client/features/characters_list/data/models/characters_page_model.dart';
-import 'package:rick_and_morty_client/features/characters_list/domain/usecases/get_characters.dart';
+import 'package:rick_and_morty_client/src/core/domain/repositories/character_repository.dart';
+import 'package:rick_and_morty_client/src/features/characters_list/data/models/characters_page_model.dart';
+import 'package:rick_and_morty_client/src/features/characters_list/domain/usecases/get_characters.dart';
 
-import '../../../../fixtures/fixture_reader.dart';
+import '../../../../../fixtures/fixture_reader.dart';
 import 'get_characters_test.mocks.dart';
 
 @GenerateMocks([CharacterRepository])

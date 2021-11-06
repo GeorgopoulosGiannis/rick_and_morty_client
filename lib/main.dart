@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_client/features/characters_list/presentation/pages/characters_list_page.dart';
 import 'package:wakelock/wakelock.dart';
 
-import 'core/injector.dart';
-import 'features/characters_list/presentation/bloc/characters_list_bloc.dart';
+import 'package:rick_and_morty_client/src/core/route_generator.dart';
+import 'package:rick_and_morty_client/src/core/injector.dart';
+
+import 'package:rick_and_morty_client/src/features/characters_list/presentation/pages/characters_list_page.dart';
+import 'package:rick_and_morty_client/src/features/characters_list/presentation/bloc/characters_list_bloc.dart';
 
 void main() {
   runZonedGuarded(
@@ -53,13 +55,14 @@ class RickAndMortyClient extends StatelessWidget {
             titleTextStyle: TextStyle(
               color: Colors.black,
               fontSize: 20,
-              fontWeight:FontWeight.bold,
+              fontWeight: FontWeight.bold,
             ),
           ),
           colorScheme: const ColorScheme.dark(),
         ),
         themeMode: ThemeMode.dark,
         home: const CharactersListPage(),
+        onGenerateRoute: RouteGenerator.handleRoute,
       ),
     );
   }

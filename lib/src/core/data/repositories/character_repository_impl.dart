@@ -2,17 +2,17 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-import 'package:rick_and_morty_client/core/domain/failures/failure.dart';
-
 import 'package:either_dart/either.dart';
-import 'package:rick_and_morty_client/core/domain/failures/server_failure.dart';
-import 'package:rick_and_morty_client/core/domain/repositories/character_repository.dart';
-import 'package:rick_and_morty_client/features/characters_list/data/models/characters_page_model.dart';
-import 'package:rick_and_morty_client/features/characters_list/domain/entities/characters_page.dart';
+
+import '../../../features/characters_list/data/models/characters_page_model.dart';
+import '../../../features/characters_list/domain/entities/characters_page.dart';
+import '../../domain/failures/server_failure.dart';
+import '../../domain/repositories/character_repository.dart';
+
+import '../../domain/failures/failure.dart';
 
 const baseUrl = 'rickandmortyapi.com';
 const path = 'api/character';
-const pageexample = 'https://rickandmortyapi.com/api/character/?page:2';
 
 @LazySingleton(as: CharacterRepository)
 class CharacterRepositoryImpl extends CharacterRepository {
