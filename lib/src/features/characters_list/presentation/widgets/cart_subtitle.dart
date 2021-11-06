@@ -60,7 +60,7 @@ class _SubtitlePart extends StatelessWidget {
         Text(
           // in order to break lines on letters and not on words
           //https://github.com/flutter/flutter/issues/18761
-          value.replaceAll('', '\u{200B}'),
+          value,
           style: Theme.of(context).textTheme.subtitle1,
         ),
       ],

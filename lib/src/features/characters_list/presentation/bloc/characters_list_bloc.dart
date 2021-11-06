@@ -20,13 +20,13 @@ class CharactersListBloc
     this.getCharacters,
   ) : super(CharactersListState.initial()) {
     registerEvents();
-    
-    
-    add(const LoadEvent());
+
+    add(const LoadEvent(1));
   }
 
   void registerEvents() {
     on<LoadEvent>(_onLoadEvent);
+    on<LoadMoreEvent>(_onLoadMoreEvent);
   }
 
   FutureOr<void> _onLoadEvent(
@@ -47,12 +47,33 @@ class CharactersListBloc
           errorMessage: failure.message,
           status: Status.error,
         ),
-        (page) => CharactersListState(
-          status: Status.loaded,
-          characters: page.characters,
-          info: page.info,
-        ),
+        (page) {
+          return CharactersListState(
+            status: Status.loaded,
+            characters: [...state.characters, ...page.characters],
+            info: page.info,
+          );
+        },
       ),
     );
+  }
+
+  FutureOr<void> _onLoadMoreEvent(
+    LoadMoreEvent event,
+    Emitter<CharactersListState> emit,
+  ) async {
+    if (_hasNextPage()) {
+      add(
+        LoadEvent(_extractNextPageFromUrl(state.info!.next!)),
+      );
+    }
+  }
+
+  int _extractNextPageFromUrl(String url) {
+    return int.parse(url.substring(url.length - 1));
+  }
+
+  bool _hasNextPage() {
+    return state.info != null && state.info!.next != null;
   }
 }

@@ -9,8 +9,9 @@ abstract class CharactersListEvent extends Equatable {
 
 class LoadEvent extends CharactersListEvent {
   final int page;
+  const LoadEvent(this.page);
+}
 
-  const LoadEvent({
-    this.page = 1,
-  });
+class LoadMoreEvent extends CharactersListEvent {
+  const LoadMoreEvent();
 }

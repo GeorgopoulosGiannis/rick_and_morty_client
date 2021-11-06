@@ -1,12 +1,13 @@
 part of 'characters_list_bloc.dart';
 
-enum Status { empty, loading, loaded, error }
+enum Status { loading, loaded, error }
 
 class CharactersListState extends Equatable {
   final Status status;
   final List<Character> characters;
   final PageInfo? info;
   final String? errorMessage;
+
   const CharactersListState({
     required this.characters,
     required this.info,
@@ -15,7 +16,7 @@ class CharactersListState extends Equatable {
   });
 
   CharactersListState.initial()
-      : status = Status.empty,
+      : status = Status.loading,
         characters = [],
         errorMessage = null,
         info = null;
