@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_client/src/core/route_generator.dart';
-import 'package:rick_and_morty_client/src/features/character_details/presentation/pages/character_details_page.dart';
-import 'package:rick_and_morty_client/src/features/characters_list/presentation/widgets/list_scream.dart';
+
+import '../../../../core/route_generator.dart';
+
+import '../../../character_details/presentation/pages/character_details_page.dart';
 
 import '../bloc/characters_list_bloc.dart';
+
 import '../widgets/list_card.dart';
+import '../widgets/list_scream.dart';
 
 class CharactersListPage extends StatefulWidget {
   const CharactersListPage({Key? key}) : super(key: key);
@@ -62,7 +65,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
                     // could directly pass character and avoid second http call
                     Navigator.of(context).pushNamed(
                       Pages.detail,
-                      arguments: CharacterPageArguments(
+                      arguments: DetailPageArguments(
                         character.id,
                       ),
                     );

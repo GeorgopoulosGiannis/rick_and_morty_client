@@ -14,17 +14,20 @@ class CardImage extends StatelessWidget {
         topLeft: Radius.circular(10),
         bottomLeft: Radius.circular(10),
       ),
-      child: Image.network(
-        url,
-        fit: BoxFit.fill,
-        filterQuality: FilterQuality.high,
-        errorBuilder: (
-          BuildContext context,
-          Object exception,
-          StackTrace? stackTrace,
-        ) {
-          return const Text('😢');
-        },
+      child: Hero(
+        tag: url,
+        child: Image.network(
+          url,
+          fit: BoxFit.fill,
+          filterQuality: FilterQuality.high,
+          errorBuilder: (
+            BuildContext context,
+            Object exception,
+            StackTrace? stackTrace,
+          ) {
+            return const Text('😢');
+          },
+        ),
       ),
     );
   }

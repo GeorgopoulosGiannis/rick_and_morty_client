@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_client/src/features/character_details/presentation/bloc/character_details_bloc.dart';
 
 import '../features/character_details/presentation/pages/character_details_page.dart';
 
 import '../features/characters_list/presentation/pages/characters_list_page.dart';
-import 'injector.dart';
 
 class RouteGenerator {
   final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
@@ -15,15 +12,10 @@ class RouteGenerator {
 
     switch (route) {
       case (Pages.detail):
-        final arguments = settings.arguments as CharacterPageArguments;
+        final arguments = settings.arguments as DetailPageArguments;
         return _buildRoute(
           settings,
-          BlocProvider<CharacterDetailsBloc>(
-            create: (context) => sl<CharacterDetailsBloc>(
-              param1: arguments.charID,
-            ),
-            child: const CharacterDetailsPage(),
-          ),
+          CharacterDetailsPage(charID: arguments.charID),
         );
       case (Pages.list):
         return _buildRoute(

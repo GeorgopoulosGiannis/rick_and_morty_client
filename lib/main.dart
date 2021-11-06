@@ -37,6 +37,7 @@ class RickAndMortyClient extends StatelessWidget {
     return BlocProvider(
       create: (context) => sl<CharactersListBloc>(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Rick and Morty',
         builder: (BuildContext context, Widget? widget) {
           Widget error = const Text('...rendering error...');
