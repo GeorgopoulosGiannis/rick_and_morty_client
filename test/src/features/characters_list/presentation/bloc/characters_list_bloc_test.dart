@@ -29,12 +29,60 @@ void main() {
   setUp(() {
     mockGetCharacters = MockGetCharacters();
   });
+  test(
+    'should extract correct page when page number is single digit',
+    () {
+      // arrange
+
+      const tUrl = 'https://rickandmortyapi.com/api/character?page=2';
+      final bloc = CharactersListBloc(mockGetCharacters);
+      // act
+
+      final result = bloc.extractNextPageFromUrl(tUrl);
+      // assert
+
+      expect(result, 2);
+    },
+  );
+
+  test(
+    'should extract correct page when page number is two digits',
+    () {
+      // arrange
+      const tUrl = 'https://rickandmortyapi.com/api/character?page=20';
+      final bloc = CharactersListBloc(mockGetCharacters);
+      // act
+      final result = bloc.extractNextPageFromUrl(tUrl);
+      // assert
+
+      expect(result, 20);
+    },
+  );
 
   blocTest<CharactersListBloc, CharactersListState>(
-    '''emits [CharactersListState.initial()],
-       and then adds LoadEvent and emits CharactersListState(status:Status.loaded
-                                    characters:characters,
-                                    info:info),
+    '''emits nothing,
+       when no events are added,
+     ''',
+    build: () => CharactersListBloc(mockGetCharacters),
+    expect: () => [],
+  );
+
+  test(
+    '''bloc state is  CharactersListState.initial(),
+       when no events are added,
+     ''',
+    () {
+      final bloc = CharactersListBloc(mockGetCharacters);
+      expect(bloc.state, CharactersListState.initial());
+    },
+  );
+
+  blocTest<CharactersListBloc, CharactersListState>(
+    '''emits [
+              CharactersListState.initial().copyWith(status: Status.loading),
+              loadedFirstPageState
+              ],
+       when LoadEvent(1) is added
      ''',
     setUp: () {
       when(mockGetCharacters.call(1)).thenAnswer(
@@ -44,40 +92,32 @@ void main() {
       );
     },
     build: () => CharactersListBloc(mockGetCharacters),
-    //act: (bloc) => bloc..add(const LoadEvent(1)),
+    act: (bloc) => bloc..add(const LoadEvent(1)),
     expect: () => [
-      CharactersListState.initial(),
-      CharactersListState.initial().copyWith(
-        characters: tCharacterPageResponse.characters,
-        info: tCharacterPageResponse.info,
-        status: Status.loaded,
-      ),
+      CharactersListState.initial().copyWith(status: Status.loading),
+      loadedFirstPageState,
     ],
   );
 
   blocTest<CharactersListBloc, CharactersListState>(
-    '''emits [CharactersListState(state:Status.loading)],
-       and then emits CharactersListState(status:Status.loaded
-                                    characters:characters,
-                                    info:info),
-        on LoadMoreEvent.
+    '''emits previous state with Status.loading,
+        and then adds new characters and emits state with Status.loaded
+       when LoadMoreEvent is added
      ''',
     setUp: () {
-      when(mockGetCharacters.call(2)).thenAnswer(
+      when(mockGetCharacters.call(any)).thenAnswer(
         (_) async => Right(
           tCharacterPageResponse,
         ),
       );
     },
-    seed: () => loadedFirstPageState,
     build: () => CharactersListBloc(mockGetCharacters),
-    act: (bloc) => bloc..add(const LoadEvent(2)),
+    seed: () => loadedFirstPageState,
+    act: (bloc) => bloc..add(const LoadMoreEvent()),
+    wait:const Duration(milliseconds: 200),
     expect: () => [
       loadedFirstPageState.copyWith(status: Status.loading),
-      loadedFirstPageState.copyWith(characters: [
-        ...loadedFirstPageState.characters,
-        ...loadedFirstPageState.characters
-      ]),
+      loadedFirstPageState.copyWith(characters: [...loadedFirstPageState.characters,...tCharacterPageResponse.characters]),
     ],
   );
 }

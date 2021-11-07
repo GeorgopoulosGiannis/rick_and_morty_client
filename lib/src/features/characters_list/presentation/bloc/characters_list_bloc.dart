@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../../../core/domain/entities/character.dart';
 import '../../../../core/domain/entities/page_info.dart';
@@ -20,14 +22,22 @@ class CharactersListBloc
     this.getCharacters,
   ) : super(CharactersListState.initial()) {
     registerEvents();
-
-    add(const LoadEvent(1));
   }
 
   void registerEvents() {
     on<LoadEvent>(_onLoadEvent);
-    on<LoadMoreEvent>(_onLoadMoreEvent);
+    on<LoadMoreEvent>(
+      _onLoadMoreEvent,
+      transformer: debounce(
+        const Duration(milliseconds: 100),
+      ),
+    );
   }
+
+  EventTransformer<CharactersListEvent> debounce<CharactersListEvent>(
+    Duration duration,
+  ) =>
+      (events, mapper) => events.debounceTime(duration).flatMap(mapper);
 
   FutureOr<void> _onLoadEvent(
     LoadEvent event,
@@ -62,18 +72,23 @@ class CharactersListBloc
     LoadMoreEvent event,
     Emitter<CharactersListState> emit,
   ) async {
-    if (_hasNextPage()) {
+    if (hasNextPage()) {
+      final nextPage = extractNextPageFromUrl(state.info!.next!);
+      print(nextPage);
       add(
-        LoadEvent(_extractNextPageFromUrl(state.info!.next!)),
+        LoadEvent(nextPage),
       );
     }
   }
 
-  int _extractNextPageFromUrl(String url) {
-    return int.parse(url.substring(url.length - 1));
+  @visibleForTesting
+  int extractNextPageFromUrl(String url) {
+    final page = url.split('page=')[1];
+    return int.parse(page);
   }
 
-  bool _hasNextPage() {
+  @visibleForTesting
+  bool hasNextPage() {
     return state.info != null && state.info!.next != null;
   }
 }

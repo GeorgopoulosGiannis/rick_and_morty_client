@@ -7,4 +7,6 @@ abstract class CharacterDetailsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadEvent extends CharacterDetailsEvent {}
+class LoadEvent extends CharacterDetailsEvent {
+  const LoadEvent();
+}

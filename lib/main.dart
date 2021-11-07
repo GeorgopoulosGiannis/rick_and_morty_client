@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:wakelock/wakelock.dart';
 
-import 'package:rick_and_morty_client/src/core/route_generator.dart';
 import 'package:rick_and_morty_client/src/core/injector.dart';
+import 'package:rick_and_morty_client/src/core/route_generator.dart';
+
 import 'package:rick_and_morty_client/src/features/characters_list/presentation/pages/characters_list_page.dart';
 import 'package:rick_and_morty_client/src/features/characters_list/presentation/bloc/characters_list_bloc.dart';
 
@@ -13,10 +15,10 @@ void main() {
   runZonedGuarded(
     () {
       WidgetsFlutterBinding.ensureInitialized();
-      Wakelock.enable();
       FlutterError.onError = (FlutterErrorDetails details) {
         FlutterError.presentError(details);
       };
+      Wakelock.enable();
       configureDependencies();
       runApp(RickAndMortyClient(RouteGenerator()));
     },
@@ -34,7 +36,7 @@ class RickAndMortyClient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<CharactersListBloc>(),
+      create: (context) => sl<CharactersListBloc>()..add(const LoadEvent(1)),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Rick and Morty',

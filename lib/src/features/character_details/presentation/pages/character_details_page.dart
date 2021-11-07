@@ -18,7 +18,7 @@ class CharacterDetailsPage extends StatelessWidget {
     return BlocProvider<CharacterDetailsBloc>(
       create: (context) => sl<CharacterDetailsBloc>(
         param1: charID,
-      ),
+      )..add(const LoadEvent()),
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
