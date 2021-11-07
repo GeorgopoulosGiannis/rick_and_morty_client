@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ListScream extends StatelessWidget {
-  final bool scream;
+class Loader extends StatelessWidget {
+  final bool enabled;
   final Widget child;
-  const ListScream({
+  const Loader({
     Key? key,
-    required this.scream,
+    required this.enabled,
     required this.child,
   }) : super(key: key);
 
@@ -15,7 +15,7 @@ class ListScream extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         child,
-        if (scream)
+        if (enabled)
           Container(
             width: MediaQuery.of(context).size.width,
             color: Colors.black.withOpacity(0.5),

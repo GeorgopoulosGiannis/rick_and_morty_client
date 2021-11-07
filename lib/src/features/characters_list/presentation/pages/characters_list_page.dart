@@ -52,8 +52,8 @@ class _CharactersListPageState extends State<CharactersListPage> {
               child: Text(state.errorMessage!),
             );
           }
-          return ListScream(
-            scream: state.status == Status.loading,
+          return Loader(
+            enabled: state.status == Status.loading,
             child: ListView.builder(
               controller: _scrollController,
               itemCount: state.characters.length,

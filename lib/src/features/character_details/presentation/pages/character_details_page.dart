@@ -33,11 +33,6 @@ class CharacterDetailsPage extends StatelessWidget {
           ),
           body: BlocBuilder<CharacterDetailsBloc, CharacterDetailsState>(
             builder: (context, state) {
-              if (state is Loading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
               if (state is Error) {
                 return Center(
                   child: Text(state.message),
@@ -47,7 +42,7 @@ class CharacterDetailsPage extends StatelessWidget {
                 return Center(child: DetailCard(char: state.char));
               }
               return const Center(
-                child: Text('Should not be in this state'),
+                child: CircularProgressIndicator(),
               );
             },
           ),

@@ -114,10 +114,15 @@ void main() {
     build: () => CharactersListBloc(mockGetCharacters),
     seed: () => loadedFirstPageState,
     act: (bloc) => bloc..add(const LoadMoreEvent()),
-    wait:const Duration(milliseconds: 200),
+    wait: const Duration(milliseconds: 200),
     expect: () => [
       loadedFirstPageState.copyWith(status: Status.loading),
-      loadedFirstPageState.copyWith(characters: [...loadedFirstPageState.characters,...tCharacterPageResponse.characters]),
+      loadedFirstPageState.copyWith(
+        characters: [
+          ...loadedFirstPageState.characters,
+          ...tCharacterPageResponse.characters,
+        ],
+      ),
     ],
   );
 }
