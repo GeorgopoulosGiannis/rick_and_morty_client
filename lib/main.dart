@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,8 +24,12 @@ void main() {
       runApp(RickAndMortyClient(RouteGenerator()));
     },
     (Object error, StackTrace stacktrace) {
-      print('error $error');
-      print(stacktrace);
+      if (!kReleaseMode) {
+        // ignore: avoid_print
+        print('error $error');
+        // ignore: avoid_print
+        print(stacktrace);
+      }
     },
   );
 }

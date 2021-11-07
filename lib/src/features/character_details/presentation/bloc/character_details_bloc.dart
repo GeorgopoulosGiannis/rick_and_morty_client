@@ -22,7 +22,6 @@ class CharacterDetailsBloc
   })  : assert(charID != null),
         super(Empty()) {
     registerEvents();
-    add(LoadEvent());
   }
 
   void registerEvents() {

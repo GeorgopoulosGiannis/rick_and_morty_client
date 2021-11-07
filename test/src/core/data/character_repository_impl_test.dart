@@ -1,4 +1,4 @@
-import 'dart:math';
+
 
 import 'package:either_dart/either.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -21,13 +21,12 @@ void main() {
   late MockResponse mockResponse;
   late CharacterRepositoryImpl repo;
 
-  const tCharactersUrl = 'https://rickandmortyapi.com/api/character?page=1';
-  final tCharactersResponse = fixture('characters');
+  
 
-  const tCharactersUrl2 = 'https://rickandmortyapi.com/api/character?page=2';
+  const tCharactersUrl = 'https://rickandmortyapi.com/api/character?page=2';
   final tCharactersResponsePage2 = fixture('characters_2');
 
-  const tCharUrl = 'https://rickandmortyapi.com/api/character/2';
+
   final tCharResponse = fixture('single_character');
 
   setUp(
@@ -47,7 +46,7 @@ void main() {
         final uri = repo.getUriForPage(2);
 
         // assert
-        expect(uri.toString(), tCharactersUrl2);
+        expect(uri.toString(), tCharactersUrl);
       },
     );
   });
