@@ -73,8 +73,8 @@ class CharactersListBloc
     Emitter<CharactersListState> emit,
   ) async {
     if (hasNextPage()) {
+      // hasHasNextPage() checks if state.info is null so we dont need to check for null again
       final nextPage = extractNextPageFromUrl(state.info!.next!);
-      print(nextPage);
       add(
         LoadEvent(nextPage),
       );

@@ -26,6 +26,11 @@ class _CharactersListPageState extends State<CharactersListPage> {
     _scrollController.addListener(_onScroll);
     super.initState();
   }
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   void _onScroll() {
     final maxScroll = _scrollController.position.maxScrollExtent;
