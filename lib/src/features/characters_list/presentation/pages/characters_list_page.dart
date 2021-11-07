@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/route_generator.dart';
+import '../../../../core/router/route_generator.dart';
 
 import '../../../character_details/presentation/pages/character_details_page.dart';
 
@@ -40,7 +40,6 @@ class _CharactersListPageState extends State<CharactersListPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
           title: const Text(
             'The Rick and Morty API',
           ),

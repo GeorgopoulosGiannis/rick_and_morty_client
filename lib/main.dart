@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wakelock/wakelock.dart';
 
 import 'package:rick_and_morty_client/src/core/injector.dart';
-import 'package:rick_and_morty_client/src/core/route_generator.dart';
+import 'package:rick_and_morty_client/src/core/router/route_generator.dart';
 
 import 'package:rick_and_morty_client/src/features/characters_list/presentation/pages/characters_list_page.dart';
 import 'package:rick_and_morty_client/src/features/characters_list/presentation/bloc/characters_list_bloc.dart';
@@ -54,6 +54,7 @@ class RickAndMortyClient extends StatelessWidget {
         darkTheme: ThemeData(
           brightness: Brightness.dark,
           appBarTheme: const AppBarTheme(
+            centerTitle: true,
             backgroundColor: Colors.white,
             iconTheme: IconThemeData(
               color: Colors.black,

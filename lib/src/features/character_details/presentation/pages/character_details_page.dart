@@ -22,7 +22,6 @@ class CharacterDetailsPage extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            centerTitle: true,
             title: BlocBuilder<CharacterDetailsBloc, CharacterDetailsState>(
                 builder: (context, state) {
               if (state is Loaded) {
@@ -39,7 +38,11 @@ class CharacterDetailsPage extends StatelessWidget {
                 );
               }
               if (state is Loaded) {
-                return Center(child: DetailCard(char: state.char));
+                return Center(
+                  child: DetailCard(
+                    char: state.char,
+                  ),
+                );
               }
               return const Center(
                 child: CircularProgressIndicator(),
