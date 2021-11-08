@@ -14,6 +14,7 @@ class CharacterDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: const Key('CharacterDetailsPage'),
         appBar: AppBar(
           title: BlocBuilder<CharacterDetailsBloc, CharacterDetailsState>(
               builder: (context, state) {
