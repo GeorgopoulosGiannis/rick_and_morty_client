@@ -1,5 +1,12 @@
 import 'failure.dart';
 
 class ApplicationFailure extends Failure {
-  ApplicationFailure(String message) : super(message: message, code: 0);
+  final StackTrace trace;
+  ApplicationFailure(
+    String message,
+    this.trace,
+  ) : super(
+          message: message,
+          code: 0,
+        );
 }
