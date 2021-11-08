@@ -16,17 +16,25 @@ class CardImage extends StatelessWidget {
       ),
       child: Hero(
         tag: url,
-        child: Image.network(
-          url,
-          fit: BoxFit.fill,
-          filterQuality: FilterQuality.high,
-          errorBuilder: (
-            BuildContext context,
-            Object exception,
-            StackTrace? stackTrace,
-          ) {
-            return const Text('😢');
-          },
+        child: Container(
+          foregroundDecoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                url,
+              ),
+              fit: BoxFit.fill,
+              // swallow error and keep showing decoration image
+              onError: (object, stacktrace) {},
+            ),
+          ),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                'assets/sample-placeholder.jpeg',
+              ),
+              fit: BoxFit.fill,
+            ),
+          ),
         ),
       ),
     );

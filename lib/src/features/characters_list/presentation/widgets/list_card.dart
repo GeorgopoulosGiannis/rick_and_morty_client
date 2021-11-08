@@ -9,7 +9,7 @@ import 'card_title.dart';
 class ListCard extends StatelessWidget {
   final Character char;
   final VoidCallback onTap;
-  const ListCard({
+   const ListCard({
     Key? key,
     required this.char,
     required this.onTap,

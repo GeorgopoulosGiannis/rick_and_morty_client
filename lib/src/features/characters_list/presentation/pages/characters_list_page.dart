@@ -26,6 +26,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
     _scrollController.addListener(_onScroll);
     super.initState();
   }
+
   @override
   void dispose() {
     _scrollController.dispose();
@@ -59,11 +60,13 @@ class _CharactersListPageState extends State<CharactersListPage> {
           return Loader(
             enabled: state.status == Status.loading,
             child: ListView.builder(
+              key: const Key('CharactersListKey'),
               controller: _scrollController,
               itemCount: state.characters.length,
               itemBuilder: (context, i) {
                 final character = state.characters[i];
                 return ListCard(
+                  key: Key('ListItemKey-$i'),
                   char: character,
                   onTap: () {
                     // could directly pass character and avoid second http call

@@ -4,8 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+
 import 'package:rxdart/rxdart.dart';
 
+import '../../../../core/domain/failures/app_failure.dart';
 import '../../../../core/domain/entities/character.dart';
 import '../../../../core/domain/entities/page_info.dart';
 import '../../domain/usecases/get_characters.dart';
@@ -51,12 +53,20 @@ class CharactersListBloc
     final pageOrFailure = await getCharacters(event.page);
     emit(
       pageOrFailure.fold(
-        (failure) => CharactersListState(
-          info: null,
-          characters: const [],
-          errorMessage: failure.message,
-          status: Status.error,
-        ),
+        (failure) {
+          String message;
+          if (failure is ApplicationFailure) {
+            message = failure.trace.toString();
+          } else {
+            message = failure.message;
+          }
+          return CharactersListState(
+            info: null,
+            characters: const [],
+            errorMessage: message,
+            status: Status.error,
+          );
+        },
         (page) {
           return CharactersListState(
             status: Status.loaded,
@@ -73,7 +83,7 @@ class CharactersListBloc
     Emitter<CharactersListState> emit,
   ) async {
     if (hasNextPage()) {
-      // hasHasNextPage() checks if state.info is null so we dont need to check for null again
+      // hasHasNextPage() checks if state.info is null so we can do state.info! safely
       final nextPage = extractNextPageFromUrl(state.info!.next!);
       add(
         LoadEvent(nextPage),
