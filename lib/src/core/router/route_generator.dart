@@ -7,6 +7,7 @@ import 'route_transitions.dart';
 import '../../features/character_details/presentation/bloc/character_details_bloc.dart';
 import '../../features/character_details/presentation/pages/character_details_page.dart';
 import '../../features/characters_list/presentation/pages/characters_list_page.dart';
+
 class RouteGenerator {
   final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
   RouteGenerator();
