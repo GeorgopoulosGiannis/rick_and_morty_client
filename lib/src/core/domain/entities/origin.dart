@@ -2,16 +2,16 @@ import 'package:equatable/equatable.dart';
 
 class Origin extends Equatable {
   final String name;
-  final String location;
+  final String url;
 
   const Origin(
     this.name,
-    this.location,
+    this.url,
   );
 
   @override
   List<Object?> get props => [
         name,
-        location,
+        url,
       ];
 }
