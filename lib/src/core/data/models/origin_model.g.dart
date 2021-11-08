@@ -8,11 +8,11 @@ part of 'origin_model.dart';
 
 OriginModel _$OriginModelFromJson(Map<String, dynamic> json) => OriginModel(
       name: json['name'] as String,
-      location: json['location'] as String,
+      url: json['url'] as String,
     );
 
 Map<String, dynamic> _$OriginModelToJson(OriginModel instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'location': instance.location,
+      'url': instance.url,
     };

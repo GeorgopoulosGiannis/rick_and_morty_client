@@ -7,9 +7,9 @@ part 'origin_model.g.dart';
 @JsonSerializable()
 class OriginModel extends Origin {
   const OriginModel({
-   required String name,
-   required String location,
-  }) : super(name, location);
+    required String name,
+    required String url,
+  }) : super(name, url);
 
   factory OriginModel.fromJson(Map<String, dynamic> json) =>
       _$OriginModelFromJson(json);
