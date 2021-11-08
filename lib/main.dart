@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:wakelock/wakelock.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:rick_and_morty_client/src/core/injector.dart';
 import 'package:rick_and_morty_client/src/core/router/route_generator.dart';
@@ -19,17 +18,16 @@ void main() {
       FlutterError.onError = (FlutterErrorDetails details) {
         FlutterError.presentError(details);
       };
+      ErrorWidget.builder = (FlutterErrorDetails errorDetails) => const Text('...rendering error...');
       Wakelock.enable();
       configureDependencies();
       runApp(RickAndMortyClient(RouteGenerator()));
     },
     (Object error, StackTrace stacktrace) {
-      if (!kReleaseMode) {
-        // ignore: avoid_print
-        print('error $error');
-        // ignore: avoid_print
-        print(stacktrace);
-      }
+      // ignore: avoid_print
+      print('error $error');
+      // ignore: avoid_print
+      print(stacktrace);
     },
   );
 }
@@ -45,17 +43,6 @@ class RickAndMortyClient extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Rick and Morty',
-        builder: (BuildContext context, Widget? widget) {
-          Widget error = const Text('...rendering error...');
-          if (widget is Scaffold || Widget is Navigator) {
-            error = Scaffold(
-                body: Center(
-              child: error,
-            ));
-          }
-          ErrorWidget.builder = (FlutterErrorDetails errorDetails) => error;
-          return widget!;
-        },
         darkTheme: ThemeData(
           brightness: Brightness.dark,
           appBarTheme: const AppBarTheme(
