@@ -1,11 +1,9 @@
 import 'dart:convert';
 
-
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:either_dart/either.dart';
-
 
 import '../../../features/characters_list/data/models/characters_page_model.dart';
 import '../../../features/characters_list/domain/entities/characters_page.dart';
@@ -34,10 +32,11 @@ class CharacterRepositoryImpl extends CharacterRepository {
         (left) => Left(left),
         (json) => Right(CharactersPageModel.fromJson(json)),
       );
-    } catch (e) {
+    } catch (e, stacktrace) {
       return Left(
         ApplicationFailure(
           e.toString(),
+          stacktrace,
         ),
       );
     }
@@ -61,10 +60,11 @@ class CharacterRepositoryImpl extends CharacterRepository {
         (left) => Left(left),
         (json) => Right(CharacterModel.fromJson(json)),
       );
-    } catch (e) {
+    } catch (e, stacktrace) {
       return Left(
         ApplicationFailure(
           e.toString(),
+          stacktrace,
         ),
       );
     }
