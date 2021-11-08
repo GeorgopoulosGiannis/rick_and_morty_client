@@ -24,22 +24,7 @@ void main() {
   group(
     'List Card',
     () {
-      testWidgets('Should display image', (WidgetTester tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            builder: (context, widget) {
-              return Material(
-                child: ListCard(
-                  char: char,
-                  onTap: () {},
-                ),
-              );
-            },
-          ),
-        );
-        final imageFinder = find.byType(Image);
-        expect(imageFinder, findsOneWidget);
-      });
+
 
       testWidgets('Should display green badge if status is alive',
           (WidgetTester tester) async {

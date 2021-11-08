@@ -15,10 +15,9 @@ import 'characters_list_bloc_test.mocks.dart';
 
 @GenerateMocks([GetCharacters])
 void main() {
+  late MockGetCharacters mockGetCharacters;
   final tCharacterPageResponse =
       CharactersPageModel.fromJson(json.decode(fixture('characters_only_one')));
-
-  late MockGetCharacters mockGetCharacters;
 
   final loadedFirstPageState = CharactersListState(
     characters: tCharacterPageResponse.characters.take(1).toList(),
