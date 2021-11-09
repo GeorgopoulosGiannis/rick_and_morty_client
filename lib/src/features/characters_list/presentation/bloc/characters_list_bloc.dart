@@ -54,16 +54,10 @@ class CharactersListBloc
     emit(
       pageOrFailure.fold(
         (failure) {
-          String message;
-          if (failure is ApplicationFailure) {
-            message = failure.trace.toString();
-          } else {
-            message = failure.message;
-          }
           return CharactersListState(
             info: null,
             characters: const [],
-            errorMessage: message,
+            errorMessage: failure.message,
             status: Status.error,
           );
         },
